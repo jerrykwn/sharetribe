@@ -1,0 +1,19 @@
+.video-container
+  %video{:autoplay => "", :loop => "", :muted => "", :width => "100%"}
+    %source{:src => "video/VIPKID.mp4", :type => "video/mp4"}
+    %source{:src => "Path To webm Video", :type => "video/webm"}
+  %div
+    %img{:alt => "", :src => "path to Image"}/
+  / If Videos are not supported this image will act as cover image
+:css
+  .video-container{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  min-width: 100%;
+  height: auto;
+  min-height: 100%;
+  z-index: -100;    
+  background-size: cover;
+  }

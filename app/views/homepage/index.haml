@@ -16,6 +16,7 @@
     = javascript_include_tag "markerclusterer.js"
 
 - content_for :title_header do
+  = render partial: "backgroundvideo"
   - is_homepage = params[:controller] == "homepage" && params[:action] == "index"
   - if @big_cover_photo
     %h1.marketplace-lander-content-title= community_slogan.html_safe
