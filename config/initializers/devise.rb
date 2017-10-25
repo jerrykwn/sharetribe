@@ -264,4 +264,5 @@ Devise.setup do |config|
 
   # ==> Warden configuration
   # see config/initializers/warden.rb
+  config.secret_key = 'de63d5370db78c7abc0fc8f57e2d77b688e09f3cef83075e640b4ffe923bc100928949599f6932ff933326aed1aaaa351b261d641340848b21d19329f5e0f3f2'
 end

@@ -470,6 +470,7 @@ default: &default_settings
   # Used to encrypt Stripe api keys
   app_encryption_key:
 
+  skip_email_confirmation: true
 production: &production_settings
   <<: *default_settings
 
