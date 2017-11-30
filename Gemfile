@@ -18,6 +18,8 @@ gem 'jquery-rails', '~> 4.3.1'
 gem "passenger", '~> 5.1.4'
 
 gem "mysql2", '~> 0.4.6'
+#gem 'mongoid', '~> 4', github: 'mongoid/mongoid'
+gem 'bson_ext'
 gem 'haml', '~> 5.0.1'
 gem 'sass', '~> 3.4.24'
 gem 'rack-attack', '~> 5.0.1'
@@ -170,3 +172,5 @@ gem 'intercom'
 
 gem 'twitter_cldr'
 gem 'memoist'
+
+gem 'mongoid', git: 'https://github.com/estolfo/mongoid.git'
