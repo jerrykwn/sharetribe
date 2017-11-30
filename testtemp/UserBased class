@@ -1,0 +1,88 @@
+<?php
+
+namespace Cmn\Chat\Rocket;
+
+/**
+ * Description of UserBased
+ *
+ * @author jay
+ */
+class UserBased extends Base {
+    protected $_token;
+    protected $_userId;
+    protected $_cache;
+    public static function GetAuth($user, $password) {
+        try {
+            $c = new Base("/api/login", null, ['user'=>$user, 'password'=>$password]);
+            $r = $c->SendPost();
+            return $r->data;
+        } catch(\Exception $ex) {
+            \Command\Log::Record($ex);
+            return (object)['error'=>$ex];
+        }
+    }
+    public function Token() { return $this->_token; }
+    public function UserID() { return $this->_userId; }
+    /**
+     * 
+     * @return AuthCache
+     */
+    public function Cache() { return $this->_cache; }
+    /**
+     * 
+     * @param \Cmn\User $user
+     * @return UserBased
+     */
+    public static function GetByUser(\Cmn\User $user) { return static::GetByPassword($user); }
+    /**
+     * 
+     * @param \Cmn\User $user
+     * @return UserBased
+     */
+    public static function GetByPassword(\Cmn\User $user) {
+        $class = get_called_class();
+        $c = new $class();
+        return $c->Login($user);
+    }
+    public function Login(\Cmn\User $user, $refresh = false) {
+        $this->GetCache($user);
+        if($refresh || !$this->_cache) {
+            $this->UpdateCache($user);
+        }
+        $this->_token = $this->_cache->rs_token;
+        $this->_userId = $this->_cache->rs_userid;
+        $this->AddHeader('X-Auth-Token', $this->_token);
+        $this->AddHeader('X-User-Id', $this->_userId);
+        return $this;
+    }
+    public function UpdateCache(\Cmn\User $user) {
+        $auth = static::GetAuth($user->email, substr($user->password, 0, 17));
+        if(isset($auth->error)) {
+            return $this->_updateUser($user);
+        }
+        if(!$this->_cache) {
+            $this->_cache = new AuthCache();
+            $this->_cache->id = $user->email;
+        }
+        $this->_cache->rs_userid = $auth->userId;
+        $this->_cache->rs_token  = $auth->authToken;
+        $this->_cache->date_generated = date('Y-m-d H:i:s');
+        return $this->_cache->Save();
+    }
+    public function GetCache(\Cmn\User $user) {
+        if($this->_cache) { return $this->_cache; }
+        try {
+            $this->_cache = new AuthCache($user->email);
+        } catch (\Exceptions\ItemNotFound $ex) {
+            $this->_cache = null;
+        }
+        return $this->_cache;
+    }
+    protected function _updateUser(\Cmn\User $user) {
+        //For now, we are going to assume the player doesn't exist
+        $a = new \Cmn\Chat\Rocket\AdminBot();
+        $a->CreateUser($user);
+        return $this->UpdateCache($user);
+        //throw new \Exceptions\NotImplemented();
+    }
+}

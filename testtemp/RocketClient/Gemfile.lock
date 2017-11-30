@@ -1,0 +1,13 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rocketchat (0.1.14)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  rocketchat
+
+BUNDLED WITH
+   1.16.0
