@@ -15,6 +15,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<script>
+			function showchat(rocket) {
+			document.getElementById(rocket).style.display = 'block';
+			}
+		</script>
+		
 <!-- //Meta-Tags -->
 <!-- Custom-Stylesheet-Links -->
 <!-- Bootstrap-CSS --> <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -43,6 +49,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- End of Rocket.Chat Livechat Script -->
 <!-- banner -->
 <div class="banner" id="home">
+<div class="top-header-agile">	
+<div id="rocket" style="display: none;">
+	<iframe src="https://10.42.33.38/direct/user1" frameborder="0" style="overflow: hidden; height: 100%; width: 100% position: absolute;" width="100%" height="100%">
+				<!-- -->
+			</iframe>
+		</div>
+		<input type="button" class="my_big_button" onclick="showchat('rocket');" />
+</div>
 	<div class="banner-overlay-agileinfo">
 	<div class="top-header-agile">
 		<h1><a class="col-md-4 navbar-brand" href="index.html">Scholar Vision<span>Education for everyone</span></a></h1>

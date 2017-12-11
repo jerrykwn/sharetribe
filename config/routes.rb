@@ -490,6 +490,9 @@ Rails.application.routes.draw do
   #keep this matcher last
   #catches all non matched routes, shows 404 and logs more reasonably than the alternative RoutingError + stacktrace
   get "/temp/:page" => "temp#show"
+  get "/rocketclient/gettoken" => "rocket_client#gettoken"
+  get "/rocketclient/:page" => "rocket_client#show"
+   
   match "*path" => "errors#not_found", via: :all
   
 end
