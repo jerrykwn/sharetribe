@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   include DefaultURLOptions
   protect_from_forgery
   layout 'application'
-
+  before_action :cors_set_access_control_headers
   before_action :check_http_auth,
     :check_auth_token,
     :fetch_community,
@@ -47,7 +47,16 @@ class ApplicationController < ActionController::Base
   helper_method :root, :logged_in?, :current_user?
 
   attr_reader :current_user
-
+=begin  
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = 'https://localhost'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Allow-Headers'] = '*'
+    headers['Access-Control-Request-Method'] = '*'
+    headers['Access-Control-Max-Age'] = "1728000"
+    headers['Access-Control-Allow-Credentials'] = 'true'
+  end
+=end
   def redirect_removed_locale
     if params[:locale] && Rails.application.config.REMOVED_LOCALES.include?(params[:locale])
       fallback = Rails.application.config.REMOVED_LOCALE_FALLBACKS[params[:locale]]
