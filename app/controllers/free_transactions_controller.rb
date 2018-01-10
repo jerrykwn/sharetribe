@@ -20,6 +20,10 @@ class FreeTransactionsController < ApplicationController
     render_contact_form
   end
 
+  def chat
+    render_chat_form
+  end
+
   def create_contact
     contact_form = new_contact_form(params[:listing_conversation])
 
@@ -75,6 +79,15 @@ class FreeTransactionsController < ApplicationController
       create_contact: create_contact_path(:person_id => @current_user.id, :listing_id => @listing.id)
     }
   end
+
+  def render_chat_form
+    @listing_conversation = new_contact_form
+    render "listing_conversations/chat", locals: {
+      contact_form: @listing_conversation,
+      create_contact: create_contact_path(:person_id => @current_user.id, :listing_id => @listing.id)
+    }
+  end
+
 
   def ensure_listing_author_is_not_current_user
     if @listing.author == @current_user

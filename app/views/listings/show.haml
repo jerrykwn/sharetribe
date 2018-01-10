@@ -154,6 +154,10 @@
                 %a#listing-contact{href: contact_to_listing_path(:listing_id => @listing.id.to_s), :class => "listing-author-contact-button"}
                   .content
                     = t(".contact")
+                %a#listing-contact-chat{href: chat_to_listing_path(:listing_id => @listing.id.to_s), :class => "listing-author-contact-button"}
+                  .content
+                    = t(".chat")
+                    
 
     - if @listing_presenter.received_testimonials.size > 0
       .row-with-divider.listing-author-activity
